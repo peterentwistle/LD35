@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-	public float CameraMoveSpeed = 4f;
+	public float CameraMoveSpeed = 8f;
 
 	void Update () {
 

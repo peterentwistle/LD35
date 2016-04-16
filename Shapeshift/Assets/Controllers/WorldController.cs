@@ -8,7 +8,7 @@ public class WorldController : MonoBehaviour {
 	public Sprite DefaultSprite;
 
 	void Start () {
-		_world = new World(20, 20);
+		_world = new World(50, 50);
 
 		for (int x = 0; x < World.Width; x++) {
 			for (int y = 0; y < World.Height; y++) {
