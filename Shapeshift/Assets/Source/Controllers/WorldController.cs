@@ -17,21 +17,9 @@ namespace Shapeshift.Source.Controllers {
 			for (int x = 0; x < World.Width; x++) {
 				for (int y = 0; y < World.Height; y++) {
 					Tile tile = _world.GetTileAt(x, y);
-
-					var randObj = PlaceRandomObject();
 					var location = new Vector3(tile.X, tile.Y, 0);
 
-					if (randObj != null) {
-						tile.PlacedObject = (GameObject) Instantiate(Resources.Load("Prefabs/PlacedObject"));
-						tile.PlacedObject.GetComponent<PlacedObjectController>().PlacedObject = randObj;
-
-						tile.PlacedObject.name = randObj.Name;
-						tile.PlacedObject.transform.position = location;
-
-						SpriteRenderer placedObjectSpriteRenderer = tile.PlacedObject.AddComponent<SpriteRenderer>();
-						tile.PlacedObject.AddComponent<BoxCollider2D>();
-						placedObjectSpriteRenderer.sprite = Resources.Load<Sprite>("Sprites/"+tile.PlacedObject.name);
-					}
+					PlaceRandomObjectOnTile(tile);
 
 					GameObject tileGameObj = Instantiate(GroundTile);
 					tileGameObj.name = "Tile_X_"+x+"_Y_"+y;
@@ -45,7 +33,7 @@ namespace Shapeshift.Source.Controllers {
 			}
 		}
 
-		private InteractableObject PlaceRandomObject() {
+		private InteractableObject SpawnRandomObject() {
 			var rand = Random.Range(0, 10);
 			var factory = new InteractableObjectFactory();
 
@@ -56,6 +44,22 @@ namespace Shapeshift.Source.Controllers {
 			return null;
 		}
 
+		private void PlaceRandomObjectOnTile(Tile tile) {
+			var randObj = SpawnRandomObject();
+			var location = new Vector3(tile.X, tile.Y, 0);
+
+			if (randObj != null) {
+				tile.PlacedObject = (GameObject) Instantiate(Resources.Load("Prefabs/PlacedObject"));
+				tile.PlacedObject.GetComponent<PlacedObjectController>().PlacedObject = randObj;
+
+				tile.PlacedObject.name = randObj.Name;
+				tile.PlacedObject.transform.position = location;
+
+				SpriteRenderer placedObjectSpriteRenderer = tile.PlacedObject.AddComponent<SpriteRenderer>();
+				tile.PlacedObject.AddComponent<BoxCollider2D>();
+				placedObjectSpriteRenderer.sprite = Resources.Load<Sprite>("Sprites/"+tile.PlacedObject.name);
+			}
+		}
 	}
 
 }
