@@ -9,13 +9,13 @@ namespace Shapeshift.Source.Controllers {
 	public class WorldController : MonoBehaviour {
 
 		private World _world;
+
 		public List<GameObject> Players { get; private set; }
 		public GameObject GroundTile;
 		public Sprite DefaultSprite;
 
 		void Start () {
 			generateWorld(50, 50);
-
 			spawnPlayers();
 		}
 
@@ -42,8 +42,13 @@ namespace Shapeshift.Source.Controllers {
 				tile.PlacedObject.transform.position = location;
 
 				SpriteRenderer placedObjectSpriteRenderer = tile.PlacedObject.AddComponent<SpriteRenderer>();
-				tile.PlacedObject.AddComponent<BoxCollider2D>();
 				placedObjectSpriteRenderer.sprite = Resources.Load<Sprite>("Sprites/"+tile.PlacedObject.name);
+
+				BoxCollider2D placedObjectCollider = tile.PlacedObject.AddComponent<BoxCollider2D>();
+				placedObjectCollider.isTrigger = true;
+
+				// Add to GameManager
+				GameManager.AddInstalledObject(tile.PlacedObject);
 			}
 		}
 
@@ -62,7 +67,7 @@ namespace Shapeshift.Source.Controllers {
 					tileGameObj.transform.position = location;
 
 					SpriteRenderer tileSpriteRenderer = tileGameObj.AddComponent<SpriteRenderer>();
-					tileGameObj.AddComponent<BoxCollider2D>();
+					//tileGameObj.AddComponent<BoxCollider2D>(); Disabled collider
 
 					tileSpriteRenderer.sprite = DefaultSprite;
 				}
