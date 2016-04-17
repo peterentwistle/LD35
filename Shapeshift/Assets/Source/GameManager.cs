@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Shapeshift.Source.Util;
 using System.Collections.Generic;
 using Shapeshift.Source.Models.Jobs;
 
@@ -8,7 +9,7 @@ namespace Shapeshift.Source {
 	public static class GameManager {
 
 		public static List<GameObject> TreeObjects = new List<GameObject>();
-		public static Queue<Job> QueuedJobs = new Queue<Job>();
+		public static UniqueQueue<Job> QueuedJobs = new UniqueQueue<Job>();
 		public static SelectedMode SelectedMode { get; set; }
 
 		public static void AddInstalledObject(GameObject obj) {

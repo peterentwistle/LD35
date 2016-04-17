@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Shapeshift.Source.Util;
 using Shapeshift.Source.Models.Jobs;
 
 namespace Shapeshift.Source.Models {
@@ -10,13 +11,13 @@ namespace Shapeshift.Source.Models {
 		public float HitPoints { get; private set; }
 		public Gender Gender { get; private set;}
 		public int Age { get; private set; }
-		public Queue<Job> JobQueue { get; private set; }
+		public UniqueQueue<Job> JobQueue { get; private set; }
 
 		public Player() {
 			HitPoints = 100;
 			Gender = RandomGender();
 			Age = new Random().Next(18, 75);
-			JobQueue = new Queue<Job>();
+			JobQueue = new UniqueQueue<Job>();
 		}
 
 		private Gender RandomGender() {
