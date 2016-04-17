@@ -26,11 +26,11 @@ namespace Shapeshift.Source.Controllers {
 		
 		// Update is called once per frame
 		void Update () {
-			PickupJob();
-			ExecuteJob();
+			pickupJob();
+			executeJob();
 		}
 
-		public void PickupJob() {
+		private void pickupJob() {
 			if (Player.CurrentJob.JobType != JobTypes.Idle)
 				return;
 			
@@ -40,49 +40,49 @@ namespace Shapeshift.Source.Controllers {
 			Player.CurrentJob = GameManager.QueuedJobs.Dequeue();
 		}
 
-		public void ExecuteJob() {
+		private void executeJob() {
 			var job = Player.CurrentJob;
 
 			if (!Player.JobComplete)
 				return;
 
 			if (job.JobType == JobTypes.Idle) {
-				Wonder();
+				wonder();
 				return;
 			}
 			
 			if (job.JobType == JobTypes.ChopTree) {
-				ChopTree();
+				chopTree();
 				return;
 			}
 			
 		}
 
-		public void WalkToTile(Tile tile) {
-			var targetPosition = new Vector3(tile.X, tile.Y, 0);
+		private void walkToTile(Tile tile) {
+			var targetPosition = Tile.ToVector(tile);
 			transform.position = Vector3.MoveTowards(transform.position, targetPosition, Player.MovementSpeed * Time.deltaTime);
 		}
 
-		public void ChopTree() {
+		private void chopTree() {
 			var job = Player.CurrentJob;
-			var targetPosition = new Vector3(Player.CurrentJob.JobTile.X, Player.CurrentJob.JobTile.Y, 0);
+			var targetPosition = Tile.ToVector(Player.CurrentJob.JobTile);
 
-			WalkToTile(job.JobTile);
+			walkToTile(job.JobTile);
 			if (transform.position == targetPosition) {
 				Player.JobComplete = false;
 				Invoke("treeChopComplete", job.WorkRequired);
 			}
 		}
 
-		public void SetPlayerJobToIdle() {
+		private void setPlayerJobToIdle() {
 			var jobFactory = new JobFactory();
 			resetWonderTileLocations();
 			Player.CurrentJob = jobFactory.CreateJob(JobTypes.Idle, null, null);
 		}
 
-		public void Wonder() {
-			if (!SameLocation(new Vector3(_walkToTile.X, _walkToTile.Y, 0), transform.position)) {
-				WalkToTile(_walkToTile);
+		private void wonder() {
+			if (Tile.ToVector(_walkToTile) != transform.position) {
+				walkToTile(_walkToTile);
 				return;
 			}
 
@@ -100,17 +100,13 @@ namespace Shapeshift.Source.Controllers {
 			}
 		}
 
-		public bool SameLocation(Vector3 l1, Vector3 l2) {
-			return l1 == l2;
-		}
-
 		private void wonderComplete() {
 			_wondering = false;
 		}
 
 		private void treeChopComplete() {
 			var job = Player.CurrentJob;
-			SetPlayerJobToIdle();
+			setPlayerJobToIdle();
 
 			Destroy(job.GameObject);
 			Player.JobComplete = true;

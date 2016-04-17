@@ -18,7 +18,7 @@ namespace Shapeshift.Source.Models {
 
 		public Player() {
 			HitPoints = 100;
-			Gender = RandomGender();
+			Gender = randomGender();
 			Age = new Random().Next(18, 75);
 			//JobQueue = new UniqueQueue<Job>();
 			MovementSpeed = 2f;
@@ -26,7 +26,7 @@ namespace Shapeshift.Source.Models {
 			JobComplete = true;
 		}
 
-		private Gender RandomGender() {
+		private Gender randomGender() {
 			return new Random().Next(0, 2) == 0 ? Gender.Male : Gender.Female; 
 		}
 

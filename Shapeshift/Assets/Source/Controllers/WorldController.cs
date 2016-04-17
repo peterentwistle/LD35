@@ -19,7 +19,7 @@ namespace Shapeshift.Source.Controllers {
 			spawnPlayers();
 		}
 
-		private InteractableObject SpawnRandomObjectAtTile(Tile tile) {
+		private InteractableObject spawnRandomObjectAtTile(Tile tile) {
 			var rand = Random.Range(0, 10);
 			var factory = new InteractableObjectFactory();
 
@@ -31,8 +31,8 @@ namespace Shapeshift.Source.Controllers {
 		}
 
 		private void placeRandomObjectOnTile(Tile tile) {
-			var location = new Vector3(tile.X, tile.Y, 0);
-			var randObj = SpawnRandomObjectAtTile(tile);
+			var location = Tile.ToVector(tile);
+			var randObj = spawnRandomObjectAtTile(tile);
 
 			if (randObj != null) {
 				tile.PlacedObject = (GameObject) Instantiate(Resources.Load("Prefabs/PlacedObject"));
@@ -58,7 +58,7 @@ namespace Shapeshift.Source.Controllers {
 			for (int x = 0; x < World.Width; x++) {
 				for (int y = 0; y < World.Height; y++) {
 					Tile tile = _world.GetTileAt(x, y);
-					var location = new Vector3(tile.X, tile.Y, 0);
+					var location = Tile.ToVector(tile);
 
 					placeRandomObjectOnTile(tile);
 
