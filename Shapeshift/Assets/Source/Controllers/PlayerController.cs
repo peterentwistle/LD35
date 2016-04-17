@@ -9,6 +9,7 @@ namespace Shapeshift.Source.Controllers {
 
 		private bool _wondering;
 		private Tile _walkToTile;
+		private Tile _startTile;
 		public Player Player { get; set; }
 
 		public Tile CurrentTile {
@@ -20,7 +21,7 @@ namespace Shapeshift.Source.Controllers {
 		// Use this for initialization
 		void Start () {
 			_wondering = false;
-			_walkToTile = CurrentTile;
+			resetWonderTileLocations();
 		}
 		
 		// Update is called once per frame
@@ -75,6 +76,7 @@ namespace Shapeshift.Source.Controllers {
 
 		public void SetPlayerJobToIdle() {
 			var jobFactory = new JobFactory();
+			resetWonderTileLocations();
 			Player.CurrentJob = jobFactory.CreateJob(JobTypes.Idle, null, null);
 		}
 
@@ -85,8 +87,15 @@ namespace Shapeshift.Source.Controllers {
 			}
 
 			if (!_wondering) {
+				var distance = Vector3.Distance(Tile.ToVector(_startTile), Tile.ToVector(CurrentTile));
+				Debug.Log(string.Format("Distance from start: {0} Age: {1}", distance, Player.Age));
 				_wondering = true;
-				_walkToTile = new Tile(CurrentTile.X + Random.Range(-2, 2), CurrentTile.Y + Random.Range(-2, 2));
+
+				if (distance > 3)
+					_walkToTile = _startTile;
+				else
+					_walkToTile = new Tile(CurrentTile.X + Random.Range(-2, 2), CurrentTile.Y + Random.Range(-2, 2));
+				
 				Invoke("wonderComplete", Random.Range(2, 5));
 			}
 		}
@@ -107,5 +116,10 @@ namespace Shapeshift.Source.Controllers {
 			Player.JobComplete = true;
 		}
 
+		private void resetWonderTileLocations() {
+			_startTile = CurrentTile;
+			_walkToTile = CurrentTile;
+		}
 	}
+
 }

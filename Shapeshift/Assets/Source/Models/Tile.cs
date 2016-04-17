@@ -18,5 +18,9 @@ namespace Shapeshift.Source.Models {
 			Y = -1;
 		}
 
+		public static Vector3 ToVector(Tile tile) {
+			return new Vector3(tile.X, tile.Y, 0);
+		}
+
 	}
 }
