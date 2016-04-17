@@ -2,10 +2,13 @@
 My Ludum Dare #35 Entry
 
 This is not a complete game.
-I may continue this after the competition is over.
+I may continue building this after the competition is over, but a lot of things will be changed from the original idea.
+
+Below is a list of the original idea and features the game would have.
+Only a few of the features were implemented during the 48 hour compo.
 
 ## Original Features list
-Construction and management simulation
+A construction and management simulation game
 
 - Build a base, survive (need food, resources) - Must
 
