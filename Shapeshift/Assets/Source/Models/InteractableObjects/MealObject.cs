@@ -4,7 +4,7 @@ namespace Shapeshift.Source.Models.InteractableObjects {
 
 	public class MealObject : InteractableObject {
 
-		public MealObject() : base(InteractableType.Meal, "Meal"){
+		public MealObject(Tile tile) : base(InteractableType.Meal, "Meal", tile) {
 		}
 
 	}

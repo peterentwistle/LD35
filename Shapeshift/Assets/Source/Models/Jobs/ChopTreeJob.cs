@@ -7,7 +7,7 @@ namespace Shapeshift.Source.Models.Jobs {
 
 		public GameObject Tree;
 
-		public ChopTreeJob(GameObject tree) {
+		public ChopTreeJob(GameObject tree, Tile tile) : base(JobTypes.ChopTree, tile) {
 			Tree = tree;
 		}
 	}

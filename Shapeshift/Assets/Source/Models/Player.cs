@@ -11,13 +11,17 @@ namespace Shapeshift.Source.Models {
 		public float HitPoints { get; private set; }
 		public Gender Gender { get; private set;}
 		public int Age { get; private set; }
-		public UniqueQueue<Job> JobQueue { get; private set; }
+		//public UniqueQueue<Job> JobQueue { get; private set; }
+		public float MovementSpeed { get; private set; }
+		public Job CurrentJob { get; set; }
 
 		public Player() {
 			HitPoints = 100;
 			Gender = RandomGender();
 			Age = new Random().Next(18, 75);
-			JobQueue = new UniqueQueue<Job>();
+			//JobQueue = new UniqueQueue<Job>();
+			MovementSpeed = 2f;
+			CurrentJob = new Job(JobTypes.Idle);
 		}
 
 		private Gender RandomGender() {

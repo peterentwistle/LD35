@@ -13,5 +13,10 @@ namespace Shapeshift.Source.Models {
 			Y = y;
 		}
 
+		public Tile() {
+			X = -1;
+			Y = -1;
+		}
+
 	}
 }

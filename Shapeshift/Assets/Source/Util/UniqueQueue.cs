@@ -12,6 +12,12 @@ namespace Shapeshift.Source.Util {
 			_queue = new Queue<T>();
 		}
 
+		public int Count {
+			get {
+				return _queue.Count;
+			}
+		}
+
 		/// <summary>
 		/// Enqueue the specified item if it 
 		/// isn't already contained in the Queue.

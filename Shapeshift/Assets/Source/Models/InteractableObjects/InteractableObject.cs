@@ -11,10 +11,12 @@ namespace Shapeshift.Source.Models.InteractableObjects {
 		public int Condition { get; private set; }
 		public Resource Resource { get; private set; }
 		public bool Destroyable { get; set; }
+		public Tile Tile { get; private set; }
 
-		public InteractableObject(InteractableType type, string name, bool installed = false, Resource resource = null, bool destroyable = true) {
+		public InteractableObject(InteractableType type, string name, Tile tile, bool installed = false, Resource resource = null, bool destroyable = true) {
 			Type = type;
 			Name = name;
+			Tile = tile;
 			Installed = Installed;
 			Resource = resource;
 			Destroyable = destroyable;

@@ -4,7 +4,7 @@ namespace Shapeshift.Source.Models.InteractableObjects {
 
 	public class WoodObject : InteractableObject {
 
-		public WoodObject() : base(InteractableType.Wood, "Wood"){
+		public WoodObject(Tile tile) : base(InteractableType.Wood, "Wood", tile){
 		}
 
 	}
