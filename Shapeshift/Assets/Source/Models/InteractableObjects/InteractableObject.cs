@@ -1,11 +1,11 @@
 ﻿using System;
-using Shapeshift.Source.Models.ResourceObjects;
+using Shapeshift.Source.Models.Resources;
 
 namespace Shapeshift.Source.Models.InteractableObjects {
 
 	public class InteractableObject : IInteractable {
 
-		public InteractableType Type { get; private set; }
+		public InteractableType InteractableType { get; private set; }
 		public string Name { get; private set; }
 		public bool Installed { get; private set; }
 		public int Condition { get; private set; }
@@ -14,7 +14,7 @@ namespace Shapeshift.Source.Models.InteractableObjects {
 		public Tile Tile { get; private set; }
 
 		public InteractableObject(InteractableType type, string name, Tile tile, bool installed = false, Resource resource = null, bool destroyable = true) {
-			Type = type;
+			InteractableType = type;
 			Name = name;
 			Tile = tile;
 			Installed = Installed;

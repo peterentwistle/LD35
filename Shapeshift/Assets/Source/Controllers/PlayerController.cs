@@ -2,6 +2,7 @@
 using System.Collections;
 using Shapeshift.Source.Models;
 using Shapeshift.Source.Models.Jobs;
+using Shapeshift.Source.Models.Resources;
 
 namespace Shapeshift.Source.Controllers {
 
@@ -88,7 +89,6 @@ namespace Shapeshift.Source.Controllers {
 
 			if (!_wondering) {
 				var distance = Vector3.Distance(Tile.ToVector(_startTile), Tile.ToVector(CurrentTile));
-				Debug.Log(string.Format("Distance from start: {0} Age: {1}", distance, Player.Age));
 				_wondering = true;
 
 				if (distance > 3)
@@ -109,6 +109,7 @@ namespace Shapeshift.Source.Controllers {
 			setPlayerJobToIdle();
 
 			Destroy(job.GameObject);
+			GameManager.GetResource(ResourceType.Wood).Add(4);
 			Player.JobComplete = true;
 		}
 

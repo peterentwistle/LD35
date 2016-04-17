@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shapeshift.Source.Models.ResourceObjects {
+namespace Shapeshift.Source.Models.Resources {
 	
 	public class ResourceFactory {
 
