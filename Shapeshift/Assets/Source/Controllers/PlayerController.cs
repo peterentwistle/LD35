@@ -21,7 +21,7 @@ namespace Shapeshift.Source.Controllers {
 		}
 
 		public void PickupJob() {
-			if (Player.CurrentJob.Type != JobTypes.Idle)
+			if (Player.CurrentJob.JobType != JobTypes.Idle)
 				return;
 			
 			if (GameManager.QueuedJobs.Count == 0)
@@ -33,11 +33,20 @@ namespace Shapeshift.Source.Controllers {
 		public void ExecuteJob() {
 			var job = Player.CurrentJob;
 
-			if (job.Type == JobTypes.Idle)
+			if (!Player.JobComplete)
+				return;
+
+			if (job.JobType == JobTypes.Idle)
 				return;
 			
-			if (job.Type == JobTypes.ChopTree) {
+			if (job.JobType == JobTypes.ChopTree) {
+				var targetPosition = new Vector3(Player.CurrentJob.JobTile.X, Player.CurrentJob.JobTile.Y, 0);
+
 				WalkToTile(job.JobTile);
+				if (transform.position == targetPosition) {
+					Player.JobComplete = false;
+					Invoke("TreeChopComplete", job.WorkRequired);
+				}
 			}
 			
 		}
@@ -45,6 +54,19 @@ namespace Shapeshift.Source.Controllers {
 		public void WalkToTile(Tile tile) {
 			var targetPosition = new Vector3(tile.X, tile.Y, 0);
 			transform.position = Vector3.MoveTowards(transform.position, targetPosition, Player.MovementSpeed * Time.deltaTime);
+		}
+
+		public void TreeChopComplete() {
+			var job = Player.CurrentJob;
+			SetPlayerJobToIdle();
+
+			Destroy(job.GameObject);
+			Player.JobComplete = true;
+		}
+
+		public void SetPlayerJobToIdle() {
+			var jobFactory = new JobFactory();
+			Player.CurrentJob = jobFactory.CreateJob(JobTypes.Idle, null, null);
 		}
 			
 	}

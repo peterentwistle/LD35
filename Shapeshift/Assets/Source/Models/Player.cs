@@ -13,7 +13,8 @@ namespace Shapeshift.Source.Models {
 		public int Age { get; private set; }
 		//public UniqueQueue<Job> JobQueue { get; private set; }
 		public float MovementSpeed { get; private set; }
-		public Job CurrentJob { get; set; }
+		public IJob CurrentJob { get; set; }
+		public bool JobComplete { get; set; }
 
 		public Player() {
 			HitPoints = 100;
@@ -21,7 +22,8 @@ namespace Shapeshift.Source.Models {
 			Age = new Random().Next(18, 75);
 			//JobQueue = new UniqueQueue<Job>();
 			MovementSpeed = 2f;
-			CurrentJob = new Job(JobTypes.Idle);
+			CurrentJob = new IdleJob();
+			JobComplete = true;
 		}
 
 		private Gender RandomGender() {

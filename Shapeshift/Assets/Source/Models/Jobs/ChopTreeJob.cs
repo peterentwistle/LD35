@@ -3,12 +3,10 @@ using UnityEngine;
 
 namespace Shapeshift.Source.Models.Jobs {
 
-	public class ChopTreeJob : Job {
+	public class ChopTreeJob : Job, IJob {
 
-		public GameObject Tree;
-
-		public ChopTreeJob(GameObject tree, Tile tile) : base(JobTypes.ChopTree, tile) {
-			Tree = tree;
+		public ChopTreeJob(GameObject treeGameObject, Tile tile) : base(JobTypes.ChopTree, tile, treeGameObject) {
+			WorkRequired = 3;
 		}
 	}
 }
